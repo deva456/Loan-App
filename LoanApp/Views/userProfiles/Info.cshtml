@@ -1,0 +1,124 @@
+﻿@model LoanApp.Models.userProfile
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.roi =( Model.loanAmount*Model.Tenure.months * Convert.ToDouble(Model.Loans.interestRate))/(1200.00);
+    ViewBag.emi = Math.Floor((ViewBag.roi+Model.loanAmount) / Model.Tenure.months);
+
+}
+
+<h4 class="pb-4 text-black">Hi @Html.DisplayFor(model => model.firstName), your application status: </h4>
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered border-light w-100">
+        <thead class="bg-dark text-light ">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.firstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lastName)
+                </th>
+
+
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.loanAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Loans)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tenure)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                @if (Model.Status.statusId == 2)
+                {
+                    <th>
+                        <p>ROI</p>
+                    </th>
+                    <th>
+                        <p>EMI per month</p>
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody class=" ">
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.firstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.lastName)
+
+
+                <td>
+                    ₹@Html.DisplayFor(model => model.loanAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Loans.loanType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Tenure.months)
+                </td>
+
+                @if (Model.Status.statusId == 1)
+                {
+                    <td class="text-warning">
+                        @Html.DisplayFor(model => model.Status.loanStatus)
+                    </td>
+                }
+                else if (Model.Status.statusId == 2)
+                {
+                    <td class="text-success">
+                        @Html.DisplayFor(model => model.Status.loanStatus)
+                    </td>
+                }
+                else if (Model.Status.statusId == 3)
+                {
+                    <td class="text-danger">
+                        @Html.DisplayFor(model => model.Status.loanStatus)
+                    </td>
+                }
+                @if (Model.Status.statusId == 2)
+                {
+            <td>
+                ₹@ViewBag.roi
+            </td>
+                    <td>
+                        ₹@ViewBag.emi
+                    </td>
+                }
+
+
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div>
+    @if (Model.Status.statusId == 2)
+    {
+        <h5 class="text-black-50">Congratulation ! @Html.DisplayFor(model => model.firstName) your application is approved and  ₹@Html.DisplayFor(model => model.loanAmount) will be transfered to your bank Account in 24hrs.</h5>
+    }
+    @if (Model.Status.statusId == 1)
+    {
+        <h5 class="text-black-50">We regret waiting too @Html.DisplayFor(model => model.firstName) but request you to wait for 2-3 working days.</h5>
+    }
+</div>
+<div>
+    @if (User.IsInRole(Utility.WC.AdminRole))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.profileId">Edit</a>}
+    |
+    <a asp-action="Index">Back to List</a>
+</div>

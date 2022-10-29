@@ -1,0 +1,31 @@
+﻿@model LoanApp.Models.loans
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>loans</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.loanType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.loanType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.interestRate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.interestRate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.loanId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

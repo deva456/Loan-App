@@ -1,0 +1,121 @@
+﻿@model LoanApp.Models.userProfile
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<h1>Create</h1>
+
+<h4>userProfile</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="firstName" class="control-label"></label>
+                <input asp-for="firstName" name="@UserManager.GetUserName(User)" value="@UserManager.GetUserName(User)" disabled class="form-control" />
+                <span asp-validation-for="firstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="lastName" class="control-label"></label>
+                <input asp-for="lastName" class="form-control" />
+                <span asp-validation-for="lastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" id="mobileNo" onblur="mobileValidate();" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dateOfBirth" class="control-label"></label>
+                <input asp-for="dateOfBirth" class="form-control" />
+                <span asp-validation-for="dateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="occupation" class="control-label"></label>
+                <input asp-for="occupation" class="form-control" />
+                <span asp-validation-for="occupation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="income" class="control-label"></label>
+                <input asp-for="income" class="form-control" />
+                <span asp-validation-for="income" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="idProof" class="control-label"></label>
+                <input id="txtAadhar" asp-for="idProof" onblur="AadharValidate();" class="form-control" />
+                <span asp-validation-for="idProof" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="loanAmount" class="control-label"></label>
+                <input asp-for="loanAmount" class="form-control" />
+                <span asp-validation-for="loanAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="loanId" class="control-label"></label>
+                <select asp-for="loanId" class="form-control" asp-items="ViewBag.loanId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="tenureId" class="control-label"></label>
+                <select asp-for="tenureId" class="form-control" asp-items="ViewBag.tenureId"></select>
+            </div>
+            <div class="form-group " hidden>
+                <label asp-for="loginId" class="control-label"></label>
+                <input asp-for="loginId" name="@UserManager.GetUserId(User)" value="@UserManager.GetUserId(User)" disabled class="form-control" />
+                <span asp-validation-for="loginId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section scripts{
+
+
+    <script type="text/javascript">
+        function AadharValidate() {
+            var aadhar = document.getElementById("txtAadhar").value;
+            var adharcardTwelveDigit = /^\d{​​​​​​​12}​​​​​​​$/;
+            var adharSixteenDigit = /^\d{​​​​​​​16}​​​​​​​$/;
+            if (aadhar != '') {
+                if (aadhar.match(adharcardTwelveDigit)) {
+                    return true;
+                }
+
+                else {
+                    alert("Enter valid Aadhar Number");
+                    return false;
+                }
+            }
+        }
+
+
+        function mobileValidate() {
+            var mobile = document.getElementById("mobileNo").value;
+            var regExpMob = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+
+            if (mobile != '') {
+                if (mobile.match(regExpMob)) {
+                    return true;
+                }
+                else {
+                    alert("Enter a valid mobile number");
+                    return false;
+                }
+            }
+        }
+    </script>
+
+}

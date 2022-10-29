@@ -1,0 +1,96 @@
+﻿@model IEnumerable<LoanApp.Models.userProfile>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.firstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.occupation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.income)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idProof)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.loanAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Loans)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tenure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.occupation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.income)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idProof)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.loanAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Loans.loanId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tenure.tenureId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.statusId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.profileId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.profileId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.profileId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

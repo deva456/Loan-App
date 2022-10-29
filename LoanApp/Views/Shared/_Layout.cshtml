@@ -1,0 +1,64 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LoanApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/e92bbf5d04.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+       
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="/* Created with https://www.css-gradient.com */ background: rgba(244, 168, 162, 1.0); background: -webkit-linear-gradient(top left, rgba(244, 168, 162, 1.0), rgba(175, 52, 101, 1.0)); background: -moz-linear-gradient(top left, rgba(244, 168, 162, 1.0), rgba(175, 52, 101, 1.0)); background: linear-gradient(to bottom right, rgba(244, 168, 162, 1.0), rgba(175, 52, 101, 1.0)); ">
+            <div class="container">
+            
+                <a class="navbar-brand text-white-50" asp-area="" asp-controller="Home" asp-action="Index">DK-Bank</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-black-50" asp-area="" asp-controller="userProfiles" asp-action="Create">Apply for loan</a>
+                            </li>
+
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Loans" asp-action="Index">Loan Offers</a>
+                        </li>
+                    </ul>
+                </div>
+               
+                <partial name="_LoginPartial" />
+            </div>
+
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - LoanApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

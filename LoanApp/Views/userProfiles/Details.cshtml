@@ -1,0 +1,119 @@
+﻿@model LoanApp.Models.userProfile
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+
+
+
+<div class="table-responsive-lg">
+    <table class="table table-striped table-hover table-bordered border-light w-auto">
+        <thead class="bg-dark text-light ">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.firstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dateOfBirth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.occupation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.income)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.idProof)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.loanAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Loans)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tenure)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.loginId)
+                </th>
+            </tr>
+        </thead>
+        <tbody class=" " >
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.firstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.lastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.occupation)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.income)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.idProof)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.loanAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Loans.loanType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Tenure.months)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </td>
+                @if (Model.Status.statusId == 1)
+                {
+                    <td class="text-warning">
+                        @Html.DisplayFor(model => model.Status.loanStatus)
+                    </td>
+                }
+                else if (Model.Status.statusId == 2)
+                {
+                    <td class="text-success">
+                        @Html.DisplayFor(model => model.Status.loanStatus)
+                    </td>
+                }
+                else if (Model.Status.statusId == 3)
+                {
+                    <td class="text-danger">
+                        @Html.DisplayFor(model => model.Status.loanStatus)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(model => model.loginId)
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div>
+    @if (User.IsInRole(Utility.WC.AdminRole)) {
+    <a asp-action="Edit" asp-route-id="@Model.profileId">Edit</a> }
+    |
+    <a asp-action="Index">Back to List</a>
+</div>
